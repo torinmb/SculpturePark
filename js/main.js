@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 import * as THREE from 'three';
@@ -122,11 +123,6 @@ function render() {
 	const t = Date.now()-start_time;
 	point_lights.position.copy(player.transform.position);
 	player.update();
-	/*
-	if (collides_grid( player.transform.position, grid)) {
-		player.nudge( get_normal(player.transform.position, grid).multiplyScalar(0.02) );
-	}
-	*/
 	
 	// incorporate data from server into the clients scene
 	for (let id in players_remote) {
@@ -218,3 +214,4 @@ function onWindowResize() {
     	renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
+*/

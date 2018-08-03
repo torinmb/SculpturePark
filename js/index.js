@@ -1,4 +1,11 @@
 import Vue from 'vue';
+import App from './App.vue';
+import Firebase from 'firebase';
+
+import VueRouter from 'vue-router';
+import { store } from './store/store';
+import { routes } from './router/routes';
+
 var _ = require('lodash');
 import * as THREE from 'three';
 import {create_hl_box, create_sculps} from './generate_scene.js';
@@ -6,9 +13,43 @@ import {Player} from './player.js';
 import {Editor} from './editor.js';
 
 // import io from 'socket.io-client';
-// import * as firebaseui from 'firebaseui';
-window.db = firebase.database();
-window.aa = 'HI';
+// import {config} from '../firebase_config.js';
+
+var config = {
+  apiKey: 'AIzaSyCAhhFQ-uLHV9olvKsE6ffjZS5Ltp7P_F4',
+  authDomain: 'shader-park.firebaseapp.com',
+  databaseURL: 'https://shader-park.firebaseio.com',
+  projectId: 'shader-park',
+  storageBucket: 'shader-park.appspot.com',
+  messagingSenderId: '990525739988'
+};
+
+Firebase.initializeApp(config);
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  routes: routes,
+  mode: 'history'
+});
+
+router.beforeEach((to, from, next) => {
+  const currentUser = Firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) {
+    next('/sign-in');
+  } else if (requiresAuth && currentUser) {
+    next();
+  } else {
+    next();
+  }
+});
+
+Firebase.auth().onAuthStateChanged(function(user) {
+  new Vue({el: '#app', store: store, router: router, render: h => h(App)});
+});
+
+window.db = Firebase.database();
 
 var scene, sculps, player, grid, point_lights, room, highlight_box, camera,
     renderer, start_time, editor, mouse, raycaster, current_sel, socket,
@@ -227,62 +268,62 @@ function onWindowResize() {
 }
 
 
-const app = new Vue({
-    el: '#app',
-    data: {
-        message: '',
-        perspectiveQueryIsDirty: false,
-        gettingPerspectiveQuery: false,
-        toxicity: 0.0,
-        unsubstantial: 0.0
-    },
-    created: function() {
-        console.log('created');
-    },
-    computed: {
-        searchIndicator: function () {
-            if (this.gettingPerspectiveQuery) {
-                return '⟳ Fetching new results';
-            } else if (this.perspectiveQueryIsDirty) {
-                return '... Typing';
-            } else {
-                return '✓ Done';
-            }
-        }
-    },
-    watch: {
-        message: function(oldMessage, newMessage) {
-            this.perspectiveQueryIsDirty = true;
-            this.fetchPerspective();
-        }
-    },
-    methods: {
-        fetchPerspective: _.throttle(function () {
-            this.gettingPerspectiveQuery = true;
-            if(this.message.length === 0) return;
-            const request = {
-                comment: { text: this.message },
-                languages: ['en'],
-                requestedAttributes: { TOXICITY: {}, UNSUBSTANTIAL: {} },
-            };
-            fetch("/check", {
-                body: JSON.stringify(request),
-                headers: { "Content-Type": "application/json" },
-                method: "POST"
-            }).then(output => {
-                console.log(output);
-                return output.json();
-            })
-                .then(response => {
-                    console.log('respnse');
-                    if (response && response.attributeScores) {
-                        this.toxicity = response.attributeScores.TOXICITY.summaryScore.value;
-                        this.unsubstantial = response.attributeScores.UNSUBSTANTIAL.summaryScore.value;
-                    }
-                    this.perspectiveQueryIsDirty = false;
-                    this.gettingPerspectiveQuery = false;
-                    console.log(response);
-                }).catch(err => console.log(err));
-        }, 1000)
-    }
-});
+// const app = new Vue({
+//     el: '#app',
+//     data: {
+//         message: '',
+//         perspectiveQueryIsDirty: false,
+//         gettingPerspectiveQuery: false,
+//         toxicity: 0.0,
+//         unsubstantial: 0.0
+//     },
+//     created: function() {
+//         console.log('created');
+//     },
+//     computed: {
+//         searchIndicator: function () {
+//             if (this.gettingPerspectiveQuery) {
+//                 return '⟳ Fetching new results';
+//             } else if (this.perspectiveQueryIsDirty) {
+//                 return '... Typing';
+//             } else {
+//                 return '✓ Done';
+//             }
+//         }
+//     },
+//     watch: {
+//         message: function(oldMessage, newMessage) {
+//             this.perspectiveQueryIsDirty = true;
+//             this.fetchPerspective();
+//         }
+//     },
+//     methods: {
+//         fetchPerspective: _.throttle(function () {
+//             this.gettingPerspectiveQuery = true;
+//             if(this.message.length === 0) return;
+//             const request = {
+//                 comment: { text: this.message },
+//                 languages: ['en'],
+//                 requestedAttributes: { TOXICITY: {}, UNSUBSTANTIAL: {} },
+//             };
+//             fetch("/check", {
+//                 body: JSON.stringify(request),
+//                 headers: { "Content-Type": "application/json" },
+//                 method: "POST"
+//             }).then(output => {
+//                 console.log(output);
+//                 return output.json();
+//             })
+//                 .then(response => {
+//                     console.log('respnse');
+//                     if (response && response.attributeScores) {
+//                         this.toxicity = response.attributeScores.TOXICITY.summaryScore.value;
+//                         this.unsubstantial = response.attributeScores.UNSUBSTANTIAL.summaryScore.value;
+//                     }
+//                     this.perspectiveQueryIsDirty = false;
+//                     this.gettingPerspectiveQuery = false;
+//                     console.log(response);
+//                 }).catch(err => console.log(err));
+//         }, 1000)
+//     }
+// });
