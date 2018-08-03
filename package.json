@@ -1,0 +1,65 @@
+{
+  "name": "Sculpture Park",
+  "version": "0.0.0",
+  "description": "",
+  "main": "js/index.js",
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            [
+              "env",
+              {
+                "targets": {
+                  "browsers": [
+                    "last 2 versions",
+                    "safari >= 7"
+                  ]
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "browse": "gcloud app browse --project $npm_package_gcloud_id",
+    "build": "npm run less && browserify js/index.js -o client/bundle.js",
+    "less": "lessc less/style.less client/style.css",
+    "start": "node server.js",
+    "watch": "npm run less && concurrently \"npm run watchify\" \"autoless less/ client/\" \"nodemon server.js\"",
+    "watchify": "watchify js/index.js --debug -o client/bundle.js --verbose"
+  },
+  "author": "Andrew Palmer, Peter Whidden, Torin Blankensmith",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "codemirror": "^5.39.2",
+    "express": "^4.16.3",
+    "google-trends-api": "^4.6.1",
+    "lodash": "^4.17.5",
+    "mongodb": "^3.1.1",
+    "node-cleanup": "^2.1.2",
+    "node-fetch": "^2.1.2",
+    "socket.io": "^2.1.1",
+    "three": "^0.94.0",
+    "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "autoless": "^0.1.7",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^14.5.0",
+    "concurrently": "^3.5.0",
+    "less": "^2.7.3",
+    "nodemon": "^1.17.3",
+    "watchify": "^3.9.0"
+  }
+}

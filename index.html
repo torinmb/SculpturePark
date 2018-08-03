@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shader Park</title>
+		<script src="codemirror/codemirror.js"></script>
+		<link rel="stylesheet" href="codemirror/codemirror.css">
+		<script src="codemirror/clike-mode.js"></script>
+		<script src="codemirror/sublime-keymap.js"></script>
+		<link rel="stylesheet" href="/style.css">
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyCAhhFQ-uLHV9olvKsE6ffjZS5Ltp7P_F4",
+				authDomain: "shader-park.firebaseapp.com",
+				databaseURL: "https://shader-park.firebaseio.com",
+				projectId: "shader-park",
+				storageBucket: "shader-park.appspot.com",
+				messagingSenderId: "990525739988"
+			};
+			firebase.initializeApp(config);
+		</script>
+		<script src="/socket.io/socket.io.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, user-scalable=yes">
+	</head>
+	<body>
+		<div id="editor">
+			<div id="editor-controls">
+				<button id="editor-save-button">Save</button>
+				<button id="editor-compile-button">Compile</button>
+				<button id="editor-close-button">Close</button>
+				<input type="text" id="editor-shader-title" size="60"></input>
+				<span>by</span>
+				<input type="text" id="editor-author-name" size="30"></input>
+			</div>
+		</div>
+
+		<div id="app">
+			<h1>Shader Park</h1>
+		</div>
+		<script src="/bundle.js"></script>
+	</body>
+</html>
