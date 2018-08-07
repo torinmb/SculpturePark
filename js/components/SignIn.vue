@@ -1,35 +1,12 @@
 <template>
-  <section class="section">
-    <h1 class="title has-text-centered">Sign-in</h1>
-    <div class="columns">
-      <div class="column is-one-third">
-
-        <div class="card">
-          <div class="card-header is-centered">
-            <h2 class="card-header-title is-centered">Sign in to Your Account</h2>
-          </div>
-          <div class="card-content">
-            <form v-on:submit.prevent>
-              <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                  <input class="input" type="email" placeholder="joe@bloggs.com" v-model="email">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                  <input class="input" type="password" v-model="password">
-                </div>
-              </div>
-              <button type="submit" class="button is-primary" v-on:click="signIn">Sign-in</button>
-            </form>
-          </div>
-        </div>
-
-      </div>
+     <div class="auth-container">
+        <form v-on:submit.prevent>
+            <input class="input w-input" type="email" placeholder="email:" v-model="email">
+            <!-- <input class="input w-input" type="text" placeholder="username:" v-model="username"> -->
+            <input class="input w-input" type="password" placeholder="password:" v-model="password">
+            <button type="submit" class="button"  :class="{ disabled: isDisabled }" :disabled="isDisabled" v-on:click="signIn">Sign In</button>
+        </form>
     </div>
-  </section>
 </template>
 
 <script>
@@ -40,6 +17,11 @@ export default {
       email: "",
       password: ""
     };
+  },
+  computed: {
+      isDisabled : function () {
+          return !(this.email.length > 0 && this.password.length > 0);
+      }
   },
   methods: {
     signIn: function() {

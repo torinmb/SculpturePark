@@ -6,7 +6,7 @@ import VueRouter from 'vue-router';
 import { store } from './store/store';
 import { routes } from './router/routes';
 
-var _ = require('lodash');
+// var _ = require('lodash');
 import * as THREE from 'three';
 import {create_hl_box, create_sculps} from './generate_scene.js';
 import {Player} from './player.js';
@@ -56,6 +56,7 @@ var scene, sculps, player, grid, point_lights, room, highlight_box, camera,
     players_remote, players_local;
 
 socket = io();
+store.state.socket = socket;
 socket.on('initial_sculps', (existing_sculps) => {
   init(socket.id, existing_sculps);
 });
@@ -87,7 +88,8 @@ function init(socket_id, existing_sculps) {
   players_local = {};
   grid = {x: 27, z: 7, spacing: 4.0, size: 1.0, ceiling: 2.0};
 
-  scene = new THREE.Scene();
+  // scene = new THREE.Scene();
+  scene = store.state.scene;
   camera = new THREE.PerspectiveCamera(
       75, window.innerWidth / window.innerHeight, 0.03, 180);
   renderer = new THREE.WebGLRenderer({antialias: false});
@@ -103,7 +105,7 @@ function init(socket_id, existing_sculps) {
       grid.x * grid.spacing, grid.ceiling, grid.z * grid.spacing);
 
   const room_mat = new THREE.MeshStandardMaterial({
-    color: new THREE.Color(0.6, 0.6, 0.6),
+    color: new THREE.Color(1.0, 1.0, 1.0),
     roughness: 0.82,
     metalness: 0.01,
     side: THREE.BackSide
@@ -116,6 +118,7 @@ function init(socket_id, existing_sculps) {
   scene.add(highlight_box);
 
   sculps = create_sculps(grid, existing_sculps, socket);
+
   scene.add(sculps);
 
   // setup lights

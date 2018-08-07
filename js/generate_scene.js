@@ -3,6 +3,7 @@ import * as THREE from 'three';
 
 export function create_hl_box(grid) {
 	const edges = new THREE.Group();
+	edges.name = "hl-boxes";
 	const hl_geo = new THREE.BoxBufferGeometry( grid.size/32, grid.size, grid.size/32 );
 	const hl_mat = new THREE.MeshStandardMaterial( { color: 0xffffff } );
 	const a = new THREE.Mesh( hl_geo, hl_mat );
@@ -31,9 +32,9 @@ export function create_sculps(grid, existing_sculps, socket) {
 	// create grid of cubes
 	const half_grid_x = Math.floor(grid.x / 2);
 	const half_grid_z = Math.floor(grid.z / 2);
-	const geometry = 
-		new THREE.BoxBufferGeometry( grid.size, grid.size, grid.size);
+	const geometry = new THREE.BoxBufferGeometry( grid.size, grid.size, grid.size);
 	const sculptures = new THREE.Group();
+	sculptures.name = "sculptures";
 	let loaded_count = 0;
 	// Create Objects in a loop
 	for (let i = 0; i < grid.x; i++ ) {

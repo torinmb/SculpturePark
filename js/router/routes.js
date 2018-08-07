@@ -1,8 +1,9 @@
-import Home from '../components/Home.vue';
-import SignIn from '../components/SignIn.vue';
-import SignUp from '../components/SignUp.vue';
 import Error404 from '../components/Error404.vue';
+import Home from '../components/Home.vue';
 import Profile from '../components/Profile.vue';
+import SignUp from '../components/SignUp.vue';
+import SignIn from '../components/SignIn.vue';
+import New from '../components/New.vue';
 
 // This is where you add all your site routes
 // Each route is set as an obect in the array
@@ -12,23 +13,41 @@ import Profile from '../components/Profile.vue';
 export const routes = [{
     path: '',
     name: 'home',
-    component: Home
+    component: Home,
+    meta: {
+        title: 'Home',
+    }
+},
+{
+    path: '/new',
+    name: 'new',
+    component: New,
+    meta: {
+        title: 'New Sculpture',
+    }
 },
 {
     path: '/sign-in',
     name: 'signIn',
-    component: SignIn
+    component: SignIn,
+    meta: {
+        title: 'Sign In',
+    }
 },
 {
     path: '/sign-up',
     name: 'signUp',
-    component: SignUp
+    component: SignUp,
+    meta: {
+        title: 'Sign Up',
+    }
 },
 {
     path: '/profile',
     name: 'profile',
     component: Profile,
     meta: {
+        title: 'Profile',
         requiresAuth: true
     }
 },

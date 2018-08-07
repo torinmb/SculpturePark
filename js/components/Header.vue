@@ -7,10 +7,11 @@
         <h1 class="nav-text">Featured</h1>
         <div class="nav-right">        
             <router-link to="/" class="link">Home</router-link>
-            <router-link to="sign-in" class="link" v-if="!user">Sign-in</router-link>
-            <router-link to="sign-up" class="link" v-if="!user">Sign-up</router-link>
+            <router-link to="/new" class="link">New</router-link>
+            <router-link to="sign-in" class="link" v-if="!user">Sign In</router-link>
+            <router-link to="sign-up" class="link" v-if="!user">Sign Up</router-link>
             <router-link to="profile" class="link" v-if="user">Profile</router-link>
-            <a class="button" v-on:click="signOut" v-if="user">Sign-out</a>
+            <a class="link" v-on:click="signOut" v-if="user">Sign Out</a>
         </div>
     </div>
 </template>
@@ -110,14 +111,21 @@ export default {
 
 
 .button {
-  padding: 11px 35px;
-  border: 1px solid #dedede;
-  border-radius: 4px;
-  background-color: #50e3c2;
-  font-size: 18px;
-  font-weight: 200;
-  letter-spacing: 1.1px;
-  text-indent: 0px;
+    opacity: 1.0;
+    color: white;
+    padding: 11px 35px;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    background-color: #50e3c2;
+    font-size: 18px;
+    font-weight: 200;
+    letter-spacing: 1.1px;
+    text-indent: 0px;
+    transition: opacity 300ms ease-in-out;
+    
+    &.disabled {
+        opacity: 0.5;
+    }
 }
 
 
