@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Firebase from 'firebase';
+import firebase from 'firebase';
 
 import VueRouter from 'vue-router';
 import { store } from './store/store';
@@ -24,16 +24,15 @@ var config = {
   messagingSenderId: '990525739988'
 };
 
-Firebase.initializeApp(config);
+firebase.initializeApp(config);
 Vue.use(VueRouter);
+Vue.config.productionTip = false;
+window.db = firebase.database();
 
-const router = new VueRouter({
-  routes: routes,
-  mode: 'history'
-});
+const router = new VueRouter({routes: routes, mode: 'history'});
 
 router.beforeEach((to, from, next) => {
-  const currentUser = Firebase.auth().currentUser;
+  const currentUser = firebase.auth().currentUser;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   if (requiresAuth && !currentUser) {
@@ -45,11 +44,10 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-Firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user) {
   new Vue({el: '#app', store: store, router: router, render: h => h(App)});
+  Vue.prototype.$db = firebase.database;
 });
-
-window.db = Firebase.database();
 
 var scene, sculps, player, grid, point_lights, room, highlight_box, camera,
     renderer, start_time, editor, mouse, raycaster, current_sel, socket,

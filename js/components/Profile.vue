@@ -8,5 +8,17 @@
 </template>
 
 <script>
+export default {
+  computed: {
+    currUserID () {
+      return this.$store.getters.getUser.uid
+    }
+  },
+  mounted() {
+    console.log(this.currUserID);
+    // console.log(this.$store.state.scene);
+  }
+};
+
 
 </script>

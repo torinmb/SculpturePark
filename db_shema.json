@@ -40,27 +40,27 @@
         "id" : null,
         "sketch-id": null,
         "timestamp" : null,
-        "user-id" : null
+        "uid" : null
     }],
 
     "forks" : [{
         "id" : null,
         "sketch-id" : null,
         "timestamp" : null,
-        "user-id" : null
+        "uid" : null
     }],
 
     "views": [{
         "id": null,
         "sketch-id": null,
         "timestamp": null,
-        "user-id": null
+        "uid": null
     }],
 
     "comments" : [{
         "id" : null,
         "sketch-id" : null,
-        "user-id" : null,
+        "uid" : null,
         "timestamp" : null
     }],
 

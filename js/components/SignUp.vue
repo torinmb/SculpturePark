@@ -10,7 +10,9 @@
 </template>
 
 <script>
-import Firebase from "firebase";
+import firebase from "firebase";
+import {User} from "../schema/User.js";
+
 export default {
   data: function() {
     return {
@@ -21,16 +23,21 @@ export default {
   },
   methods: {
     signUp: function() {
-      Firebase.auth()
+      firebase.auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          user => {
+        .then(output => {
+            const uid = output.user.uid;
+            const dbUser = new User(this.username, this.email);
+            this.$store.dispatch('setDBUser', {user: dbUser, uid: uid});
             this.$router.replace('profile');
           },
           error => {
             alert(error.message);
           }
         );
+    },
+    checkUsername(username) {
+      return this.$db.object(`usernames/${username.toLowercase()}`);
     }
   }
 };

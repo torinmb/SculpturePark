@@ -1,5 +1,25 @@
 import * as THREE from 'three';
 
+
+// "sketches" : [{
+// 	"id": null,
+// 	"author": null,
+// 	"title": "",
+// 	"description": "",
+// 	"tags": "",
+// 	"timestamp": "",
+// 	"favorites": 0,
+// 	"views": 0,
+// 	"comments": 0,
+// 	"forks": 0,
+// 	"fork": null, //if a fork set to id
+// 	"featured": false,
+// 	"code": "",
+// 	"image": "",
+// 	"visibility": "", //draft, public, private
+// 	"license": ""
+// }],
+
 export class Sculpture {
 
 	constructor(id, name, auth, x, y, save_func, user_shader) {

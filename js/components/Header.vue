@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Firebase from "firebase";
+import firebase from "firebase";
 export default {
   computed: {
     user() {
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     signOut: function() {
-      Firebase.auth()
+      firebase.auth()
         .signOut()
         .then(() => {
           this.$router.replace('sign-in');
