@@ -70,8 +70,8 @@ varying vec4 worldPos;
 	}
 
 	static get default_frag_source() {
-		return Sculpture.default_frag_header +
-`// Define the signed distance function (SDF) of you object here
+          return Sculpture.default_frag_header +
+              `// Define the signed distance function (SDF) of you object here
 float map(vec3 p) {
 	return length(p)-0.3;
 }
@@ -103,7 +103,7 @@ vec3 shade(vec3 p) {
 	vec3 lightdir = normalize(vec3(0.0, 1.0, 0.0));
 	vec3 normal = calcNormal(p);
 	float value = clamp(dot(normal, lightdir),0.0, 1.0);
-	return vec3(value + 0.035);
+	return vec3(value * 0.3 + 0.7);
 }
 
 void main() {
@@ -122,7 +122,7 @@ void main() {
 		discard;
 	}
 }`;
-	}
+        }
 
 	generate_material() {
 		let m = new THREE.ShaderMaterial( {

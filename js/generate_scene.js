@@ -39,13 +39,7 @@ export function create_sculps(grid, existing_sculps, socket) {
 	// Create Objects in a loop
 	for (let i = 0; i < grid.x; i++ ) {
 		for (let j = 0; j < grid.z; j++) {
-			const material = new THREE.MeshStandardMaterial( { 
-				color: new THREE.Color( 
-					0.2,//Math.random(), 
-					0.2,//Math.random(), 
-					0.2),//Math.random()),
-				roughness: 0.92,
-				metalness: 0.03	} );
+			const material = new THREE.MeshBasicMaterial( { color: new THREE.Color( 0.95, 0.95, 0.95)});
 			const box = new THREE.Mesh( geometry, material );
 			const sculp_ID = (i+","+j);
 			let existing = existing_sculps.filter( s => s._id === sculp_ID);

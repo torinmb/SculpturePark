@@ -102,10 +102,8 @@ function init(socket_id, existing_sculps) {
   const room_geo = new THREE.BoxBufferGeometry(
       grid.x * grid.spacing, grid.ceiling, grid.z * grid.spacing);
 
-  const room_mat = new THREE.MeshStandardMaterial({
+  const room_mat = new THREE.MeshBasicMaterial({
     color: new THREE.Color(1.0, 1.0, 1.0),
-    roughness: 0.82,
-    metalness: 0.01,
     side: THREE.BackSide
   });
 
@@ -129,9 +127,9 @@ function init(socket_id, existing_sculps) {
     pl.position.z = 3.0 * Math.cos(ang) * grid.spacing / 2;
     point_lights.add(pl);
   }
-  scene.add(point_lights);
+  // scene.add(point_lights);
   point_lights.position.y = 1;
-  const hemisphereLight = new THREE.HemisphereLight(0x889999, 0x445555);
+  const hemisphereLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFF);
   scene.add(hemisphereLight);
 
   window.addEventListener('resize', onWindowResize, false);
