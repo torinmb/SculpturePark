@@ -18,6 +18,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve('./index.html'));
 });
 
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve('./index.html'));
+})
+
 const login_file = 'dblogin.json';
 
 let login = null;
