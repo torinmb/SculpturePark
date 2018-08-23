@@ -88,6 +88,7 @@ function init(socket_id, existing_sculps) {
 
   // scene = new THREE.Scene();
   scene = store.state.scene;
+  scene.background = new THREE.Color(1, 1, 1);
   camera = new THREE.PerspectiveCamera(
       75, window.innerWidth / window.innerHeight, 0.03, 180);
   renderer = new THREE.WebGLRenderer({antialias: false});
@@ -108,7 +109,7 @@ function init(socket_id, existing_sculps) {
   });
 
   room = new THREE.Mesh(room_geo, room_mat);
-  scene.add(room);
+  // scene.add(room);
 
   highlight_box = create_hl_box(grid);
   scene.add(highlight_box);

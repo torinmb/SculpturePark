@@ -6,12 +6,12 @@
         </div>
         <h1 class="nav-text">Featured</h1>
         <div class="nav-right">        
-            <router-link to="/" class="link">Home</router-link>
-            <router-link to="/new" class="link">New</router-link>
-            <router-link to="sign-in" class="link" v-if="!user">Sign In</router-link>
-            <router-link to="sign-up" class="link" v-if="!user">Sign Up</router-link>
-            <router-link to="profile" class="link" v-if="user">Profile</router-link>
-            <a class="link" v-on:click="signOut" v-if="user">Sign Out</a>
+            <router-link to="/" class="link" active-class="active" exact>Home</router-link>
+            <router-link to="/new" class="link" active-class="active">New</router-link>
+            <router-link to="sign-in" class="link" v-if="!user" active-class="active">Sign In</router-link>
+            <router-link to="sign-up" class="link" v-if="!user" active-class="active">Sign Up</router-link>
+            <router-link to="profile" class="link" v-if="user" active-class="active">Profile</router-link>
+            <a class="link" v-on:click="signOut" v-if="user" active-class="active">Sign Out</a>
         </div>
     </div>
 </template>
@@ -79,11 +79,10 @@ export default {
         right: 0px;
         z-index: 1;
     }  
-
     .link {
         margin-right: 40px;
-        border-bottom: 2px solid hsla(0, 0%, 100%, 0);
-        -webkit-transition: color 300ms ease-in-out;
+        border-bottom: 2px solid hsla(0, 0%, 100%, 0) !important;
+        -webkit-transition: color 300ms ease-in-out ;
         transition: color 300ms ease-in-out;
         color: #777;
         font-size: 18px;
@@ -92,13 +91,14 @@ export default {
         text-decoration: none;
         &:hover {
             color: #000;
-        }
-        &:active {
-            border-bottom: 2px solid #50e3c2;
-            -webkit-transition: border-color 300ms ease-in-out;
-            transition: border-color 300ms ease-in-out;
-        }
+        }        
     }
+    .link, .active {
+        border-bottom: 2px solid #50e3c2;
+        -webkit-transition: border-color 300ms ease-in-out;
+        transition: border-color 300ms ease-in-out;
+    }
+    
 
     .search {
         width: 330px;
