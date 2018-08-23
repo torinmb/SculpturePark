@@ -11,20 +11,12 @@ import * as THREE from 'three';
 import {create_hl_box, create_sculps} from './generate_scene.js';
 import {Player} from './player.js';
 import {Editor} from './editor.js';
+import {dbConfig} from './dbConfig.js'
 
 // import io from 'socket.io-client';
 // import {config} from '../firebase_config.js';
 
-var config = {
-  apiKey: 'AIzaSyCAhhFQ-uLHV9olvKsE6ffjZS5Ltp7P_F4',
-  authDomain: 'shader-park.firebaseapp.com',
-  databaseURL: 'https://shader-park.firebaseio.com',
-  projectId: 'shader-park',
-  storageBucket: 'shader-park.appspot.com',
-  messagingSenderId: '990525739988'
-};
-
-firebase.initializeApp(config);
+firebase.initializeApp(dbConfig);
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 window.db = firebase.database();
